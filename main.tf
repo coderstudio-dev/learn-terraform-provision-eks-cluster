@@ -69,24 +69,29 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
-
   }
 
   eks_managed_node_groups = {
     one = {
       name = "node-group-1"
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3a.medium"]
+      
+      use_custom_launch_template = false
+      disk_size      = 100  # Add disk size here in GB
 
       min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      max_size     = 2
+      desired_size = 1
     }
 
     two = {
       name = "node-group-2"
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3a.medium"]
+
+      use_custom_launch_template = false
+      disk_size      = 100  # Add disk size here in GB
 
       min_size     = 1
       max_size     = 2
@@ -94,6 +99,7 @@ module "eks" {
     }
   }
 }
+
 
 
 # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
